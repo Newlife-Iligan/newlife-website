@@ -32,12 +32,14 @@ class MinistryResource extends Resource
                     ->label('Name')
                     ->required(),
                 Select::make('head_id')
-                    ->options(Members::all()->pluck('name', 'id'))
+                    ->label("Head ID")
+                    ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
                 Select::make('assistant_id')
-                    ->options(Members::all()->pluck('name', 'id'))
+                    ->label("Assistant ID")
+                    ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
