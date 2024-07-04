@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MembersResource\Pages;
 use App\Filament\Resources\MembersResource\RelationManagers;
+use App\Models\LifeGroup;
 use App\Models\Members;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -29,8 +30,7 @@ class MembersResource extends Resource
 {
     protected static ?string $model = Members::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
-
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
@@ -64,8 +64,8 @@ class MembersResource extends Resource
                     ->options([])
                     ->label('Ministry'),
                 Select::make('life_group_id')
-                    ->options([])
-                    ->label('Ministry'),
+                    ->options(LifeGroup::all()->pluck('name', 'id'))
+                    ->label('LifeGroup'),
                 Textarea::make('motto'),
                 TextInput::make('life_verse'),
                 Textarea::make('bible_verse'),
@@ -101,7 +101,8 @@ class MembersResource extends Resource
                 TextColumn::make('ministry_id')
                     ->label('Ministry'),
                 TextColumn::make('life_group_id')
-                    ->label('Life Group'),
+                    ->label('Life Group')
+                    ->formatStateUsing(fn($state) => ucfirst(LifeGroup::find($state)->name)),
                 TextColumn::make('life_verse')
                     ->label('Life Verse')
                     ->tooltip(fn($record) => $record->bible_verse)

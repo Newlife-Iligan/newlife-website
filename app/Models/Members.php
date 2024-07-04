@@ -15,4 +15,9 @@ class Members extends Model
     {
         return $this->belongsTo(MemberRole::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
