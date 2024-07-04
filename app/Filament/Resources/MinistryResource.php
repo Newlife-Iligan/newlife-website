@@ -32,11 +32,11 @@ class MinistryResource extends Resource
                     ->label('Name')
                     ->required(),
                 Select::make('head_id')
-                    ->label("Head ID")
+                    ->label("Ministry Head")
                     ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
                 Select::make('assistant_id')
-                    ->label("Assistant ID")
+                    ->label("Head Assistant")
                     ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
             ])->columns(1);
@@ -49,10 +49,10 @@ class MinistryResource extends Resource
                 TextColumn::make('name')
                     ->formatStateUsing(fn($state) => ucfirst($state)),
                 TextColumn::make('head_id')
-                    ->label('Leader')
+                    ->label('Ministry Head')
                     ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)->full_name)),
                 TextColumn::make('assistant_id')
-                    ->label('Assistant')
+                    ->label('Head Assistant')
                     ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)->full_name)),
             ])
             ->filters([
