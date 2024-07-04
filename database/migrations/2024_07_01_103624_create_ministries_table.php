@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('ministries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedInteger('head_id');
-            $table->unsignedInteger('assistant_id');
+            $table->string('name')->nullable();
+            $table->unsignedInteger('head_id')->nullable();
+            $table->unsignedInteger('assistant_id')->nullable();
             $table->timestamps();
         });
     }
