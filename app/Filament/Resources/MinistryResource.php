@@ -6,12 +6,17 @@ use App\Filament\Resources\MinistryResource\Pages;
 use App\Filament\Resources\MinistryResource\RelationManagers;
 use App\Models\Ministry;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
+use App\Models\Members;
+
 
 class MinistryResource extends Resource
 {
@@ -23,7 +28,15 @@ class MinistryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Textinput::make('name')
+                    ->label('Name')
+                    ->required(),
+                Select::make('head_id')
+                    ->options(Members::all()->pluck('name', 'id'))
+                    ->required(),
+                Select::make('assistant_id')
+                    ->options(Members::all()->pluck('name', 'id'))
+                    ->required(),
             ]);
     }
 
@@ -31,13 +44,22 @@ class MinistryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->formatStateUsing(fn($state) => ucfirst($state)),
+                TextColumn::make('head_id')
+                    ->label('Leader')
+                    ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)->full_name)),
+                TextColumn::make('assistant_id')
+                    ->label('Assistant')
+                    ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)->full_name)),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->slideOver()
+                    ->modalWidth('md'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -57,8 +79,8 @@ class MinistryResource extends Resource
     {
         return [
             'index' => Pages\ListMinistries::route('/'),
-            'create' => Pages\CreateMinistry::route('/create'),
-            'edit' => Pages\EditMinistry::route('/{record}/edit'),
+//            'create' => Pages\CreateMinistry::route('/create'),
+//            'edit' => Pages\EditMinistry::route('/{record}/edit'),
         ];
     }
 }
