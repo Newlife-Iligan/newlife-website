@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MembersResource\Pages;
 use App\Filament\Resources\MembersResource\RelationManagers;
 use App\Models\LifeGroup;
+use App\Models\MemberRole;
 use App\Models\Members;
+use App\Models\Ministry;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -45,7 +47,7 @@ class MembersResource extends Resource
                 TextInput::make('last_name'),
                 TextInput::make('nickname'),
                 Select::make('role')
-                    ->options([]),
+                    ->relationship('role','name'),
                 DatePicker::make('birthday'),
                 TextInput::make('address')
                     ->prefixIcon('heroicon-o-home'),
@@ -61,7 +63,7 @@ class MembersResource extends Resource
                     ->placeholder('www.facebook.com/newlife-iligan')
                     ->prefixIcon('heroicon-o-link'),
                 Select::make('ministry_id')
-                    ->options([])
+                    ->options(Ministry::all()->pluck('name','id'))
                     ->label('Ministry'),
                 Select::make('life_group_id')
                     ->options(LifeGroup::all()->pluck('name', 'id'))
@@ -69,9 +71,6 @@ class MembersResource extends Resource
                 Textarea::make('motto'),
                 TextInput::make('life_verse'),
                 Textarea::make('bible_verse'),
-
-
-
             ])
             ->columns(1);
     }
@@ -96,7 +95,7 @@ class MembersResource extends Resource
                 TextColumn::make('role')
                     ->badge()
                     ->alignCenter()
-                    ->default('MEMBER'),
+                    ->formatStateUsing(fn($state)=> MemberRole::find($state)->name),
                 TextColumn::make('birthday')
                     ->label('Age')
                     ->alignCenter()
@@ -108,6 +107,7 @@ class MembersResource extends Resource
                     ->formatStateUsing(fn($state) => ucfirst(LifeGroup::find($state)->name)),
                 TextColumn::make('life_verse')
                     ->label('Life Verse')
+                    ->words(5)
                     ->tooltip(fn($record) => $record->bible_verse)
             ])
             ->filters([
