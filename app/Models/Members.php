@@ -13,7 +13,7 @@ class Members extends Model
 
     public function role()
     {
-        return $this->belongsTo(MemberRole::class);
+        return $this->belongsTo(MemberRole::class, 'role','id');
     }
 
     public function getFullNameAttribute()
