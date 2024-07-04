@@ -29,7 +29,8 @@ class MembersResource extends Resource
 {
     protected static ?string $model = Members::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
 
     public static function form(Form $form): Form
     {
@@ -44,7 +45,7 @@ class MembersResource extends Resource
                 TextInput::make('last_name'),
                 TextInput::make('nickname'),
                 Select::make('role')
-                    ->options([]),
+                    ->relationship('role'),
                 DatePicker::make('birthday'),
                 TextInput::make('address')
                     ->prefixIcon('heroicon-o-home'),
@@ -68,9 +69,6 @@ class MembersResource extends Resource
                 Textarea::make('motto'),
                 TextInput::make('life_verse'),
                 Textarea::make('bible_verse'),
-
-
-
             ])
             ->columns(1);
     }
