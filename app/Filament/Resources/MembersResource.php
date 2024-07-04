@@ -101,7 +101,8 @@ class MembersResource extends Resource
                     ->alignCenter()
                     ->formatStateUsing(fn($state)=>Carbon::make($state)->age . ' yrs old'),
                 TextColumn::make('ministry_id')
-                    ->label('Ministry'),
+                    ->label('Ministry')
+                    ->formatStateUsing(fn($state) => ucfirst(Ministry::find($state)->name)),
                 TextColumn::make('life_group_id')
                     ->label('Life Group')
                     ->formatStateUsing(fn($state) => ucfirst(LifeGroup::find($state)->name)),
