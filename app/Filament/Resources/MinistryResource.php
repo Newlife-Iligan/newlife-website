@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MinistryResource\Pages;
 use App\Filament\Resources\MinistryResource\RelationManagers;
+use App\Filament\Resources\MinistryResource\RelationManagers\MembersRelationManager;
 use App\Models\Ministry;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -73,7 +74,7 @@ class MinistryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MembersRelationManager::class,
         ];
     }
 
@@ -82,7 +83,7 @@ class MinistryResource extends Resource
         return [
             'index' => Pages\ListMinistries::route('/'),
 //            'create' => Pages\CreateMinistry::route('/create'),
-//            'edit' => Pages\EditMinistry::route('/{record}/edit'),
+            'edit' => Pages\EditMinistry::route('/{record}/edit'),
         ];
     }
 }
