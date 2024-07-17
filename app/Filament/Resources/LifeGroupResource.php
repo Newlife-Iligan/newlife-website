@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LifeGroupResource\Pages;
-use App\Filament\Resources\LifeGroupResource\RelationManagers;
+use App\Filament\Resources\MinistryResource\RelationManagers\MembersRelationManager;
 use App\Models\LifeGroup;
 use App\Models\Members;
 use Filament\Forms;
@@ -66,7 +66,7 @@ class LifeGroupResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MembersRelationManager::class,
         ];
     }
 
@@ -75,7 +75,7 @@ class LifeGroupResource extends Resource
         return [
             'index' => Pages\ListLifeGroups::route('/'),
 //            'create' => Pages\CreateLifeGroup::route('/create'),
-//            'edit' => Pages\EditLifeGroup::route('/{record}/edit'),
+            'edit' => Pages\EditLifeGroup::route('/{record}/edit'),
         ];
     }
 }

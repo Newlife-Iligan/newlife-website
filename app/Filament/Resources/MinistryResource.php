@@ -10,12 +10,15 @@ use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Components\ToggleButtons;
+use Filament\Forms\Components\FileUpload;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use App\Models\Members;
 
 
@@ -29,6 +32,11 @@ class MinistryResource extends Resource
     {
         return $form
             ->schema([
+                FileUpload::make('banner')
+                    ->disk('public')
+                    ->image()
+                    ->optimize('webp')
+                    ->directory('banner_pic'),
                 Textinput::make('name')
                     ->label('Name')
                     ->required(),
@@ -40,6 +48,21 @@ class MinistryResource extends Resource
                     ->label("Head Assistant")
                     ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
+                Textinput::make('mission'),
+                Textinput::make('vision'),
+                ToggleButtons::make('status')
+                    ->options([
+                        1 => "Active",
+                        0 => "Inactive",
+                    ])
+                    ->colors([
+                        1 => "success",
+                        0 => "danger",
+                    ])
+                    ->default(1)
+                    ->inline()
+                    ->grouped(),
+
             ])->columns(1);
     }
 
@@ -47,6 +70,9 @@ class MinistryResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('banner')
+                    ->rounded()
+                    ->alignCenter(),
                 TextColumn::make('name')
                     ->formatStateUsing(fn($state) => ucfirst($state)),
                 TextColumn::make('head_id')
@@ -55,6 +81,33 @@ class MinistryResource extends Resource
                 TextColumn::make('assistant_id')
                     ->label('Head Assistant')
                     ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)->full_name)),
+                TextColumn::make('mission')
+                    ->label('Mission')
+                    ->words(5)
+                    ->tooltip(fn($record) => $record->mission),
+                TextColumn::make('vision')
+                    ->label('Vision')
+                    ->words(5)
+                    ->tooltip(fn($record) => $record->vision),
+                TextColumn::make('status')
+                    ->label('Active')
+                    ->color(fn($state) => match($state)
+                    {
+                        1 => 'success',
+                        0 => 'danger'
+                    })
+                    ->formatStateUsing(function($state){
+                        if($state)
+                        {
+                            return 'YES';
+                        }
+                        else
+                        {
+                            return 'NO';
+                        }
+                    })
+                    ->badge(),
+
             ])
             ->filters([
                 //

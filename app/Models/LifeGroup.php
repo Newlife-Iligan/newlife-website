@@ -9,4 +9,10 @@ class LifeGroup extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function members()
+    {
+        return $this->hasMany(Members::class, 'life_group_id');
+    }
+
 }
