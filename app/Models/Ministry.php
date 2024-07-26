@@ -14,4 +14,8 @@ class Ministry extends Model
     {
         return $this->hasMany(Members::class, 'ministry_id');
     }
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class, 'ministry_id');
+    }
 }

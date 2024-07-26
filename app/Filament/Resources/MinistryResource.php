@@ -4,10 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MinistryResource\Pages;
 use App\Filament\Resources\MinistryResource\RelationManagers;
+use App\Filament\Resources\MinistryResource\RelationManagers\InventoriesRelationManager;
 use App\Filament\Resources\MinistryResource\RelationManagers\MembersRelationManager;
 use App\Models\Ministry;
+use App\Models\Inventory;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Components\ToggleButtons;
@@ -48,8 +51,8 @@ class MinistryResource extends Resource
                     ->label("Head Assistant")
                     ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
-                Textinput::make('mission'),
-                Textinput::make('vision'),
+                TextArea::make('mission'),
+                TextArea::make('vision'),
                 ToggleButtons::make('status')
                     ->options([
                         1 => "Active",
@@ -128,6 +131,7 @@ class MinistryResource extends Resource
     {
         return [
             MembersRelationManager::class,
+            InventoriesRelationManager::class,
         ];
     }
 
