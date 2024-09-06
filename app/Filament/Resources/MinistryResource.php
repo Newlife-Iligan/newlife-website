@@ -48,8 +48,8 @@ class MinistryResource extends Resource
                     ->label("Head Assistant")
                     ->options(Members::all()->pluck('full_name', 'id'))
                     ->required(),
-                Textinput::make('mission'),
-                Textinput::make('vision'),
+                Forms\Components\Textarea::make('mission'),
+                Forms\Components\Textarea::make('vision'),
                 ToggleButtons::make('status')
                     ->options([
                         1 => "Active",

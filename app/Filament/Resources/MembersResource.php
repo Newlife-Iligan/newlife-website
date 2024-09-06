@@ -84,30 +84,52 @@ class MembersResource extends Resource
                     ->rounded()
                     ->alignCenter(),
                 TextColumn::make('first_name')
+                    ->sortable()
+                    ->searchable()
                     ->formatStateUsing(fn($state) => ucfirst($state)),
                 TextColumn::make('last_name')
+                    ->sortable()
+                    ->searchable()
                     ->formatStateUsing(fn($state) => ucfirst($state)),
                 TextColumn::make('nickname')
+                    ->sortable()
+                    ->searchable()
                     ->badge()
                     ->color(Color::Gray)
                     ->alignCenter()
                     ->formatStateUsing(fn($state) => strtoupper($state)),
                 TextColumn::make('role')
                     ->badge()
+                    ->color(fn ($state): string => match ($state) {
+                        1 => 'gray',
+                        2 => 'warning',
+                        3 => 'success',
+                        4 => 'danger',
+                        5 => 'info',
+                    })
+                    ->sortable()
+                    ->searchable()
                     ->alignCenter()
                     ->formatStateUsing(fn($state)=> MemberRole::find($state)->name),
                 TextColumn::make('birthday')
                     ->label('Age')
                     ->alignCenter()
+                    ->sortable()
+                    ->searchable()
                     ->formatStateUsing(fn($state)=>Carbon::make($state)->age . ' yrs old'),
                 TextColumn::make('ministry_id')
                     ->label('Ministry')
+                    ->sortable()
+                    ->searchable()
                     ->formatStateUsing(fn($state) => ucfirst(Ministry::find($state)->name)),
                 TextColumn::make('life_group_id')
                     ->label('Life Group')
+                    ->sortable()
+                    ->searchable()
                     ->formatStateUsing(fn($state) => ucfirst(LifeGroup::find($state)->name)),
                 TextColumn::make('life_verse')
                     ->label('Life Verse')
+                    ->searchable()
                     ->words(5)
                     ->tooltip(fn($record) => $record->bible_verse)
             ])
