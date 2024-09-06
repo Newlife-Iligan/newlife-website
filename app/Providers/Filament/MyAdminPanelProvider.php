@@ -17,6 +17,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 
 class MyAdminPanelProvider extends PanelProvider
 {
@@ -52,6 +53,15 @@ class MyAdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                FilamentFullCalendarPlugin::make()
+                    ->selectable()
+                    ->editable()
+                    ->timezone('Asia/Manila')
+                    ->locale('en')
+                    ->schedulerLicenseKey('CC-Attribution-NonCommercial-NoDerivatives')
+                    ->config([]),
             ]);
     }
 }
