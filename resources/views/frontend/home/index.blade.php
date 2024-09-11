@@ -32,9 +32,87 @@
 </head>
 
 <body id="top">
-@include('frontend.includes.preloader')
-@include('frontend.includes.navbar')
-@include('frontend.includes.hero')
+
+<!-- preloader
+================================================== -->
+<div id="preloader">
+    <div id="loader" class="dots-jump">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
+<!-- header
+================================================== -->
+<header class="s-header">
+
+    <div class="header-logo">
+        <a class="site-logo" href="index.html">
+            <img src="images/mylogo.png" alt="Homepage" style="filter: invert(1);">
+        </a>
+    </div>
+
+    <nav class="header-nav-wrap">
+        <ul class="header-nav">
+            <li class="current"><a href="index.html" title="Home">Home</a></li>
+            <li><a href="about.html" title="About">About</a></li>
+            <li><a href="events.html" title="Services">Events</a></li>
+            <li><a href="contact.html" title="Contact us">Contact</a></li>
+        </ul>
+    </nav>
+
+    <a class="header-menu-toggle" href="#0"><span>Menu</span></a>
+
+</header> <!-- end s-header -->
+
+
+<!-- hero
+================================================== -->
+<section class="s-hero" data-parallax="scroll" data-image-src="images/hero-bg-3000.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+
+    <div class="hero-left-bar"></div>
+
+    <div class="row hero-content">
+
+        <div class="column large-full hero-content__text">
+            @php
+            $banner_message = "Making Jesus Known<br>Building Strong<br>Local Church";
+             @endphp
+            <h1>
+                {!! $banner_message !!}
+            </h1>
+
+            <div class="hero-content__buttons">
+                <a href="events.html" class="btn btn--stroke">Upcoming Events</a>
+                <a href="about.html" class="btn btn--stroke">About Us</a>
+            </div>
+        </div> <!-- end hero-content__text -->
+
+    </div> <!-- end hero-content -->
+
+    <ul class="hero-social">
+        <li class="hero-social__title">Follow Us</li>
+        <li>
+            <a href="#0" title="">Facebook</a>
+        </li>
+        <li>
+            <a href="#0" title="">YouTube</a>
+        </li>
+        <li>
+            <a href="#0" title="">Instagram</a>
+        </li>
+    </ul> <!-- end hero-social -->
+
+    <div class="hero-scroll">
+        <a href="#about" class="scroll-link smoothscroll">
+            Scroll For More
+        </a>
+    </div> <!-- end hero-scroll -->
+
+</section> <!-- end s-hero -->
+
 
 <!-- about
 ================================================== -->

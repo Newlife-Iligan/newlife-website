@@ -27,6 +27,8 @@ class MyAdminPanelProvider extends PanelProvider
             ->id('my-admin')
             ->path('my-admin')
             ->login()
+            ->brandLogo(asset('images/mylogo.png'))
+            ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Lime,
             ])
