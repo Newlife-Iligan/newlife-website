@@ -43,7 +43,7 @@
     <div class="row row-y-center about-content">
 
         <div class="column large-half medium-full">
-            <h3 class="subhead">Welcome to Hesed {{$user->name}} ({{$user->email}})</h3>
+            <h3 class="subhead">Welcome to Hesed {{$user?->name}} ({{$user?->email}})</h3>
             <p class="lead">
                 Vero autem et officiis officia sint in odio in iusto.
                 Blanditiis tempore ipsa saepe quaerat quas sed. Ut velit
