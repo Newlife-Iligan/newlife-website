@@ -97,8 +97,11 @@ class InventoryResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('image')
+                    ->sortable()
                     ->label('Image'),
                 TextColumn::make('name')
+                    ->sortable()
+                    ->searchable()
                     ->label('Item Name'),
                 TextColumn::make('model')
                     ->label('Model'),
@@ -107,6 +110,7 @@ class InventoryResource extends Resource
                 TextColumn::make('market_value')
                     ->label('Market Value'),
                 TextColumn::make('category')
+                    ->searchable()
                     ->label('Category'),
                 TextColumn::make('description')
                     ->label('Description')

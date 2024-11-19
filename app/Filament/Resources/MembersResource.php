@@ -134,12 +134,18 @@ class MembersResource extends Resource
                     ->tooltip(fn($record) => $record->bible_verse)
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('ministry_id')
+                    ->multiple()
+                    ->options(Ministry::all()->pluck('name','id')),
+                Tables\Filters\SelectFilter::make('life_group_id')
+                    ->multiple()
+                    ->options(LifeGroup::all()->pluck('name','id')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->slideOver()
                     ->modalWidth('md'),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

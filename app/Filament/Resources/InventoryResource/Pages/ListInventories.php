@@ -15,7 +15,8 @@ class ListInventories extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->slideOver()
-                ->modalWidth('md'),
+                ->modalWidth('md')
+
         ];
     }
 }
