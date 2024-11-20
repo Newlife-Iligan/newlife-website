@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 
-Route::post('/zapier/enable', function (){
+Route::get('/zapier/enable', function (){
     return response()->json(['status' => 200]);
 });
-Route::post('/zapier/disable', function (){
+Route::get('/zapier/disable', function (){
     return response()->json(['status' => 200]);
 });
