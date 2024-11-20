@@ -16,3 +16,8 @@ Route::get('/zapier/data', function (){
     $inventories = \App\Models\Inventory::all();
     return response($inventories)->header('Content-Type', 'text/plain');
 });
+
+Route::get('/api/zapier/docs', function (){
+    $msg = "API Documentation to be added. Ongoing testing and setup in Zapier.";
+    return response($msg)->header('Content-Type', 'text/plain');
+});
