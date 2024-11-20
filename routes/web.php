@@ -14,5 +14,5 @@ Route::get('/zapier/disable', function (){
 
 Route::get('/zapier/data', function (){
     $inventories = \App\Models\Inventory::all();
-    return response()->json(['status' => 200,'data' => $inventories]);
+    return response($inventories)->header('Content-Type', 'text/plain');
 });
