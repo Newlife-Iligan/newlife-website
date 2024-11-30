@@ -1,0 +1,51 @@
+.container{
+    text-align: center;
+    font-family: Arial, serif;
+    width: fit-content;
+    margin: auto;
+}
+
+.mt-20{
+    margin-top: 20px
+}
+
+.f-14{
+    font-size: 14px;
+}
+
+.text-right{
+    text-align: right;
+}
+
+
+.text-left{
+    text-align: left;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-value{
+    text-align: left;
+    background: rgb(232, 230, 230);
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.bg-value{
+    background: rgb(232, 230, 230);
+}
+
+
+td {
+    width: 120px;
+}
+
+.bb-1{
+    border-bottom: 1px solid black;
+}
+
+hr{
+    border-top: 1px solid rgba(200, 200, 200, 0.3);;
+}
