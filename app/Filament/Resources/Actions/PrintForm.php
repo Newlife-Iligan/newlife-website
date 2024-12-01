@@ -20,9 +20,9 @@ class PrintForm extends Action
     {
         parent::setUp();
 
-        $this->label(' ')
-            ->tooltip('Add New Payments')
-            ->icon('heroicon-o-banknotes')
+        $this->label('Print')
+            ->tooltip('Print Form')
+            ->icon('heroicon-o-printer')
             ->color('success')
             ->url(fn ($record): string => "/finance/print/" . $record->id)
             ->openUrlInNewTab();
