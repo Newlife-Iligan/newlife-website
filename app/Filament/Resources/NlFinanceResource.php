@@ -115,15 +115,19 @@ class NlFinanceResource extends Resource
                             ->grouped()
                             ->label('Mode of Returning'),
                         Select::make('department')
+                            ->searchable()
                             ->options(Ministry::all()->pluck('name','id')),
                         Select::make('cv_received_by')
                             ->label('Received By')
+                            ->searchable()
                             ->options(Members::all()->pluck('fullName','id')),
                         Select::make('cv_disbursed_by')
                             ->label('Disbursed By')
+                            ->searchable()
                             ->options(Members::all()->pluck('fullName','id')),
                         Select::make('cv_approved_by')
                             ->label('Approved By')
+                            ->searchable()
                             ->options(Members::all()->pluck('fullName','id')),
                         ToggleButtons::make('cv_status')
                             ->options([
