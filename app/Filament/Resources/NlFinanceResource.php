@@ -203,7 +203,8 @@ class NlFinanceResource extends Resource
             ])
             ->actions([
                 PrintForm::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->modalHeading('NewLife Finance Form'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -224,7 +225,7 @@ class NlFinanceResource extends Resource
         return [
             'index' => Pages\ListNlFinances::route('/'),
 //            'create' => Pages\CreateNlFinance::route('/create'),
-            'edit' => Pages\EditNlFinance::route('/{record}/edit'),
+//            'edit' => Pages\EditNlFinance::route('/{record}/edit'),
         ];
     }
 
