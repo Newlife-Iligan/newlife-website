@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Actions;
 
-use App\Models\Candidate;
 use Filament\Tables\Actions\Action;
 
 class PrintForm extends Action
