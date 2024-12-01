@@ -195,8 +195,26 @@ class NlFinanceResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('cv_particular'),
-                TextColumn::make('cv_address'),
+                TextColumn::make('form_type')
+                    ->formatStateUsing(function($state){
+                        if($state == "cv_only")
+                        {
+                            return "CV ONLY";
+                        }else if($state == "ar_only")
+                        {
+                            return "AR ONLY";
+                        }else if($state == "cv_ar")
+                        {
+                            return "CV & AR";
+                        }
+                    })
+                    ->sortable(),
+                TextColumn::make('cv_particular')
+                    ->sortable()
+                    ->label('Particular'),
+                TextColumn::make('cv_received_by')
+                    ->label('Received By')
+                    ->formatStateUsing(fn($state) => Members::find($state)->fullName)
             ])
             ->filters([
                 //
