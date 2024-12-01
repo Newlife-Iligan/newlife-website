@@ -135,6 +135,7 @@ class NlFinanceResource extends Resource
                                 "incomplete_or" => "INCOMPLETE OR",
                                 "lost_or" => "LOST OR",
                             ])
+                            ->default("liquidated")
                             ->inline()
                             ->colors(function($state){
                                 return [
