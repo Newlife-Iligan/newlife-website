@@ -49,7 +49,11 @@ class RemindersResource extends Resource
                     ->hidden(fn($get)=> $get('specific_date') == true)
                     ->reactive()
                     ->options([
-                        1,2,3,4
+                        99 => "All Weeks",
+                        1 => "First",
+                        2 => "Second",
+                        3 => "Third",
+                        4 => "Fourth"
                     ]),
                 Forms\Components\Select::make('day_number')
                     ->reactive()
@@ -61,7 +65,7 @@ class RemindersResource extends Resource
                         4 => "Thursday",
                         5 => "Friday",
                         6 => "Saturday",
-                        7 => "Sunday",
+                        0 => "Sunday",
                     ]),
             ])->columns(2);
     }
@@ -79,10 +83,38 @@ class RemindersResource extends Resource
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('week_number')
-                    ->numeric()
+                    ->formatStateUsing(function($state){
+                        if($state == 99){
+                            return "All Weeks";
+                        }elseif($state == 1){
+                            return "First";
+                        }elseif($state == 2){
+                            return "Second";
+                        }elseif($state == 3){
+                            return "Third";
+                        }elseif($state == 4){
+                            return "Fourth";
+                        }
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('day_number')
-                    ->numeric()
+                    ->formatStateUsing(function($state){
+                        if($state == 1){
+                            return "Monday";
+                        }elseif($state == 2){
+                            return "Tuesday";
+                        }elseif($state == 3){
+                            return "Wednesday";
+                        }elseif($state == 4){
+                            return "Thursday";
+                        }elseif($state == 5){
+                            return "Friday";
+                        }elseif($state == 6){
+                            return "Saturday";
+                        }elseif($state == 0){
+                            return "Sunday";
+                        }
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
