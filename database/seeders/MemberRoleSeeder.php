@@ -19,10 +19,12 @@ class MemberRoleSeeder extends Seeder
 
     public function createRoles()
     {
-        MemberRole::firstOrCreate(['name' => 'Admin']);
-        MemberRole::firstOrCreate(['name' => 'Heads']);
-        MemberRole::firstOrCreate(['name' => 'Volunteer']);
-        MemberRole::firstOrCreate(['name' => 'Member']);
-        MemberRole::firstOrCreate(['name' => 'Staff']);
+        MemberRole::firstOrCreate(['name' => 'Admin', 'color' => "rgb(235, 169, 224)"]);
+        MemberRole::firstOrCreate(['name' => 'Heads', 'color' => "rgb(209, 169, 169)"]);
+        MemberRole::firstOrCreate(['name' => 'Volunteer', 'color' => "rgb(237, 221, 138)"]);
+        MemberRole::firstOrCreate(['name' => 'Member', 'color' => "rgb(196, 73, 73)"]);
+        MemberRole::firstOrCreate(['name' => 'Staff', 'color' => "rgb(101, 158, 232)"]);
+        MemberRole::firstOrCreate(['name' => 'Finance Staff', 'color' => "rgb(74, 250, 191)"]);
+        MemberRole::firstOrCreate(['name' => 'Pastors', 'color' => "rgb(57, 199, 22)"]);
     }
 }
