@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\MemberRole;
+use App\Models\NlAccount;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -10,7 +11,7 @@ class NLAccountSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * php artisan db:seed --class=MemberRoleSeeder
+     * php artisan db:seed --class=NLAccountSeeder
      */
     public function run(): void
     {
@@ -19,13 +20,13 @@ class NLAccountSeeder extends Seeder
 
     public function createAccounts()
     {
-        MemberRole::firstOrCreate(['name' => 'Rental']);
-        MemberRole::firstOrCreate(['name' => 'Pastoral Care']);
-        MemberRole::firstOrCreate(['name' => 'Trainings/Conference/Meetings/Seminars']);
-        MemberRole::firstOrCreate(['name' => 'Ushering']);
-        MemberRole::firstOrCreate(['name' => 'Kinds Kingdom']);
-        MemberRole::firstOrCreate(['name' => 'New Gen']);
-        MemberRole::firstOrCreate(['name' => 'Admin']);
-        MemberRole::firstOrCreate(['name' => 'Finance']);
+        NlAccount::firstOrCreate(['name' => 'Rental']);
+        NlAccount::firstOrCreate(['name' => 'Pastoral Care']);
+        NlAccount::firstOrCreate(['name' => 'Trainings/Conference/Meetings/Seminars']);
+        NlAccount::firstOrCreate(['name' => 'Ushering']);
+        NlAccount::firstOrCreate(['name' => 'Kinds Kingdom']);
+        NlAccount::firstOrCreate(['name' => 'New Gen']);
+        NlAccount::firstOrCreate(['name' => 'Admin']);
+        NlAccount::firstOrCreate(['name' => 'Finance']);
     }
 }
