@@ -71,7 +71,7 @@
                         <tr>
                             <td colspan="3"></td>
                             <td class="text-right f-14" colspan="2">Cash Voucher No:</td>
-                            <td class="text-value">{{$data->cv_number}}</td>
+                            <td class="text-value"></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -126,13 +126,19 @@
                             <td colspan="3"></td>
                             <td class="text-right f-14">Actual Amt:</td>
                             <td> --- </td>
-                            <td class="text-value">₱{{number_format($data->cv_amount_actual,2)}}</td>
+                            <td class="text-value">₱</td>
                         </tr>
                         <tr>
                             <td colspan="3"></td>
                             <td class="text-right f-14">Return Amt:</td>
                             <td> --- </td>
-                            <td class="text-value">₱{{number_format($data->cv_amount_returned,2)}}</td>
+                            <td class="text-value">₱</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td class="text-right f-14">Return Mode:</td>
+                            <td> --- </td>
+                            <td class="text-value"></td>
                         </tr>
                         <tr>
                             <td height="20px"></td>

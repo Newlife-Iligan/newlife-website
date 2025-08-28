@@ -15,6 +15,8 @@ class ListNlFinances extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->label('New')
+                ->slideOver()
+                ->modalWidth('lg')
                 ->modalHeading('NewLife Finance Form'),
         ];
     }

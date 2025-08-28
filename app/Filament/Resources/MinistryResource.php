@@ -30,6 +30,7 @@ class MinistryResource extends Resource
     protected static ?string $model = Ministry::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+    protected static ?string $navigationGroup = 'Settings';
 
     public static function form(Form $form): Form
     {

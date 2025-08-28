@@ -14,6 +14,7 @@
             <li><a href="about.html" title="About">About</a></li>
             <li><a href="events.html" title="Services">Events</a></li>
             <li><a href="contact.html" title="Contact us">Contact</a></li>
+            <li><a href="/my-admin" title="Login">🔒 Login</a></li>
         </ul>
     </nav>
 

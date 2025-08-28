@@ -18,6 +18,7 @@ class LocalSeeder extends Seeder
             LifeGroupSeeder::class,
             MinistrySeeder::class,
             MemberRoleSeeder::class,
+            NLAccountSeeder::class,
             MemberSeeder::class
         ]);
     }

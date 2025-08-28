@@ -44,4 +44,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isFinance(): bool
+    {
+        $member = Members::find($this->member_id);
+        if($member){
+            return $member->isFinanceStaff();
+        }else{
+            return false;
+        }
+
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        $member = Members::find($this->member_id);
+        if($member){
+            return $member->isSuperAdmin();
+        }else{
+            return false;
+        }
+
+    }
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Actions\CreateAccount;
 use App\Filament\Resources\MembersResource\Pages;
 use App\Filament\Resources\MembersResource\RelationManagers;
 use App\Models\LifeGroup;
@@ -27,6 +28,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class MembersResource extends Resource
 {
@@ -47,7 +49,7 @@ class MembersResource extends Resource
                 TextInput::make('last_name'),
                 TextInput::make('nickname'),
                 Select::make('role')
-                    ->relationship('role','name'),
+                    ->relationship('roles','name'),
                 DatePicker::make('birthday'),
                 TextInput::make('address')
                     ->prefixIcon('heroicon-o-home'),
@@ -100,13 +102,18 @@ class MembersResource extends Resource
                     ->formatStateUsing(fn($state) => strtoupper($state)),
                 TextColumn::make('role')
                     ->badge()
-                    ->color(fn ($state): string => match ($state) {
-                        1 => 'gray',
-                        2 => 'warning',
-                        3 => 'success',
-                        4 => 'danger',
-                        5 => 'info',
-                    })
+//                    ->color(fn ($state): string => match ($state) {
+//                        1 => 'gray',
+//                        2 => 'warning',
+//                        3 => 'success',
+//                        4 => 'danger',
+//                        5 => 'info',
+//                        6 => 'primary',
+//                        7 => 'secondary',
+//                        8 => 'secondary-dark',
+//                        9 => 'primary-dark',
+//                    })
+                    ->color(fn($state)=> Color::rgb(MemberRole::find($state)->color))
                     ->sortable()
                     ->searchable()
                     ->alignCenter()
@@ -142,14 +149,18 @@ class MembersResource extends Resource
                     ->options(LifeGroup::all()->pluck('name','id')),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->slideOver()
-                    ->modalWidth('md'),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->slideOver()
+                        ->modalWidth('md'),
+                    CreateAccount::make(),
+                    Tables\Actions\DeleteAction::make()
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->hidden(!Auth::user()->isSuperAdmin()),
                 ]),
             ]);
     }

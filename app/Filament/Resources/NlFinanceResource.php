@@ -7,7 +7,9 @@ use App\Filament\Resources\NlFinanceResource\Pages;
 use App\Filament\Resources\NlFinanceResource\RelationManagers;
 use App\Models\Members;
 use App\Models\Ministry;
+use App\Models\NlAccount;
 use App\Models\NlFinance;
+use Database\Seeders\NLAccountSeeder;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -22,25 +24,28 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class NlFinanceResource extends Resource
 {
     protected static ?string $model = NlFinance::class;
     protected static ?string $navigationGroup = "Finance";
-    protected static ?string $navigationLabel = "NL Finance";
-    protected static ?string $pluralLabel = "NL Finances";
+    protected static ?string $label = "Request Form";
 
-    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
-    public static function form(Form $form): Form
+        public static function form(Form $form): Form
     {
+        $is_finance = Auth::user()->isFinance();
         return $form
             ->schema([
                 ToggleButtons::make('form_type')
                     ->options([
-                        "cv_only" => "CV ONLY",
-                        "ar_only" => "AR ONLY",
+                        "cv_only" => "CashV",
+                        "ch_only" => "CheckV",
+                        "ar_only" => "AR",
                         "cv_ar" => "CV & AR",
+                        "ch_ar" => "CH & AR",
                     ])
                     ->default('cv_only')
                     ->inline()
@@ -60,66 +65,31 @@ class NlFinanceResource extends Resource
                     ->schema([
                         DatePicker::make('cv_date')
                             ->default(now())
-                            ->columns(1)
+                            ->required()
                             ->label('Date'),
                         TextInput::make('cv_address')
-                            ->columnSpan(2)
                             ->label('Address'),
                         TextInput::make('cv_particular')
-                            ->columnSpan(3)
-                            ->label('Particular'),
+                            ->required()
+                            ->label('Particular/Purpose'),
                         TextInput::make('cv_amount')
-                            ->columnSpan(1)
                             ->prefix('₱')
                             ->label('Amount'),
-                        ToggleButtons::make('mode_of_releasing')
-                            ->options([
-                                "cash" => "CASH",
-                                "gcash" => "G-CASH",
-                                "bpi" => "BPI",
-                            ])
-                            ->inline()
-                            ->colors(function($state){
-                                return [
-                                    "cash" => "primary",
-                                    "gcash" => Color::Blue,
-                                    "bpi" => Color::Red,
-                                ];
-                            })
-                            ->columnSpan(2)
-                            ->grouped()
-                            ->label('Mode of Releasing'),
-                        TextInput::make('cv_amount_actual')
-                            ->columnSpan(1)
-                            ->prefix('₱')
-                            ->label('Actual Amount'),
-                        TextInput::make('cv_amount_returned')
-                            ->columnSpan(1)
-                            ->prefix('₱')
-                            ->label('Returned Amount'),
-                        ToggleButtons::make('mode_of_returning')
-                            ->options([
-                                "cash" => "CASH",
-                                "gcash" => "G-CASH",
-                                "bpi" => "BPI",
-                            ])
-                            ->inline()
-                            ->colors(function($state){
-                                return [
-                                    "cash" => "primary",
-                                    "gcash" => Color::Blue,
-                                    "bpi" => Color::Red,
-                                ];
-                            })
-                            ->columnSpan(1)
-                            ->grouped()
-                            ->label('Mode of Returning'),
+                        Select::make('returned_amt_receiver')
+                            ->label('Returned Amount Receiver')
+                            ->searchable()
+                            ->hidden(!$is_finance)
+                            ->options(Members::all()->pluck('fullName','id')),
+                        TextInput::make('return_ref_number')
+                            ->hidden(!$is_finance)
+                            ->label('Reference / Confirmation #'),
                         Select::make('department')
                             ->searchable()
                             ->options(Ministry::all()->pluck('name','id')),
                         Select::make('cv_received_by')
                             ->label('Received By')
                             ->searchable()
+                            ->default(Auth::user()->member_id)
                             ->options(Members::all()->pluck('fullName','id')),
                         Select::make('cv_disbursed_by')
                             ->label('Disbursed By')
@@ -129,30 +99,94 @@ class NlFinanceResource extends Resource
                             ->label('Approved By')
                             ->searchable()
                             ->options(Members::all()->pluck('fullName','id')),
-                        ToggleButtons::make('cv_status')
-                            ->options([
-                                "liquidated" => "LIQUIDATED",
-                                "incomplete_or" => "INCOMPLETE OR",
-                                "lost_or" => "LOST OR",
+
+                        Section::make('Finance Staff Fields')
+                            ->collapsible()
+                            ->hidden(!$is_finance)
+                            ->heading('Staff Fields')
+                            ->schema([
+                                ToggleButtons::make('mode_of_releasing')
+                                    ->options([
+                                        "cash" => "CASH",
+                                        "gcash" => "G-CASH",
+                                        "bpi" => "BPI",
+                                    ])
+                                    ->hidden(!$is_finance)
+                                    ->inline()
+                                    ->colors(function($state){
+                                        return [
+                                            "cash" => "primary",
+                                            "gcash" => Color::Blue,
+                                            "bpi" => Color::Red,
+                                        ];
+                                    })
+                                    ->grouped()
+                                    ->label('Mode of Releasing'),
+                                TextInput::make('releasing_ref_number')
+                                    ->hidden(!$is_finance)
+                                    ->label('Reference / Confirmation #'),
+                                TextInput::make('cv_amount_actual')
+                                    ->prefix('₱')
+                                    ->hidden(!$is_finance)
+                                    ->label('Actual Amount'),
+                                TextInput::make('cv_amount_returned')
+                                    ->prefix('₱')
+                                    ->hidden(!$is_finance)
+                                    ->label('Returned Amount'),
+                                ToggleButtons::make('mode_of_returning')
+                                    ->options([
+                                        "cash" => "CASH",
+                                        "gcash" => "G-CASH",
+                                        "bpi" => "BPI",
+                                    ])
+                                    ->inline()
+                                    ->hidden(!$is_finance)
+                                    ->colors(function($state){
+                                        return [
+                                            "cash" => "primary",
+                                            "gcash" => Color::Blue,
+                                            "bpi" => Color::Red,
+                                        ];
+                                    })
+                                    ->grouped()
+                                    ->label('Mode of Returning'),
+                                ToggleButtons::make('cv_status')
+                                    ->options([
+                                        "liquidated" => "LIQUIDATED",
+                                        "incomplete_or" => "INC. OR",
+                                        "lost_or" => "LOST OR",
+                                    ])
+                                    ->inline()
+                                    ->hidden(!$is_finance)
+                                    ->colors(function($state){
+                                        return [
+                                            "liquidated" => Color::Green,
+                                            "incomplete_or" => Color::Red,
+                                            "lost_or" => Color::Gray,
+                                        ];
+                                    })
+                                    ->grouped()
+                                    ->label('Status'),
+                                TextInput::make('cv_or_number')
+                                    ->hidden(!$is_finance)
+                                    ->label('OR Number'),
+                                TextInput::make('check_number')
+                                    ->hidden(!$is_finance)
+                                    ->label('Check Number'),
+                                Select::make('account_id')
+                                    ->label('Account')
+                                    ->hidden(!$is_finance)
+                                    ->searchable()
+                                    ->options(NlAccount::all()->pluck('name','id')),
                             ])
-                            ->default("liquidated")
-                            ->inline()
-                            ->colors(function($state){
-                                return [
-                                    "liquidated" => Color::Green,
-                                    "incomplete_or" => Color::Red,
-                                    "lost_or" => Color::Gray,
-                                ];
-                            })
-                            ->columnSpan(2)
-                            ->grouped()
-                            ->label('Status'),
-                        TextInput::make('cv_or_number')
-                            ->label('OR Number')
+
                     ])
-                    ->columns(3),
+                    ->columns(1),
                 Section::make('NewLife AR Form')
                     ->schema([
+                        TextInput::make('ar_particular')
+                            ->required()
+                            ->label('AR Particular'),
                         TextInput::make('ar_number')
                             ->label('AR Number'),
                         TextInput::make('ar_amount_in_figures')
@@ -160,7 +194,7 @@ class NlFinanceResource extends Resource
                             ->reactive()
                             ->debounce(1000)
                             ->afterStateUpdated(function($state,$set){
-                                $set('ar_amount_in_words', self::numberToWords($state));
+                                $set('ar_amount_in_words', self::numberToWords($state) . " pesos");
                             })
                             ->label('Amount in Figures'),
                         TextInput::make('ar_amount_in_words')
@@ -170,6 +204,7 @@ class NlFinanceResource extends Resource
                         Select::make('ar_received_by')
                             ->searchable()
                             ->label('Received By')
+                            ->default(Auth::user()->member_id)
                             ->options(Members::all()->pluck('fullName','id')),
                         Select::make('ar_disbursed_by')
                             ->label('Disbursed By')
@@ -187,12 +222,13 @@ class NlFinanceResource extends Resource
                             return 0;
                         }
                     })
-                    ->columns(2)
-            ]);
+                    ->columns(1)
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
+        $is_finance = Auth::user()->isFinance();
         return $table
             ->columns([
                 TextColumn::make('form_type')
@@ -222,11 +258,12 @@ class NlFinanceResource extends Resource
             ->actions([
                 PrintForm::make(),
                 Tables\Actions\EditAction::make()
+                    ->hidden(!$is_finance)
                     ->modalHeading('NewLife Finance Form'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -28,12 +28,14 @@ class MyAdminPanelProvider extends PanelProvider
             ->path('my-admin')
             ->login()
             ->profile()
+            ->registration()
             ->brandLogo(asset('images/mylogo.png'))
             ->homeUrl('/')
             ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Lime,
             ])
+            ->darkMode(true)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

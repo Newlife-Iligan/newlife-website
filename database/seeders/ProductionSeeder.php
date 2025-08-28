@@ -16,7 +16,8 @@ class ProductionSeeder extends Seeder
     {
         $this->call([
             MinistrySeeder::class,
-            MemberRoleSeeder::class
+            MemberRoleSeeder::class,
+            NLAccountSeeder::class,
         ]);
     }
 }
