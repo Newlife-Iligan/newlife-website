@@ -113,7 +113,7 @@ class MembersResource extends Resource
 //                        8 => 'secondary-dark',
 //                        9 => 'primary-dark',
 //                    })
-                    ->color(fn($state)=> Color::rgb(MemberRole::find($state)->color))
+                    ->color(fn($state)=> Color::rgb(MemberRole::find($state)->color ?? "rgb(192,192,192)"))
                     ->sortable()
                     ->searchable()
                     ->alignCenter()
