@@ -14,6 +14,8 @@ class ListLifeGroups extends ListRecords
     {
         return [
             Actions\CreateAction::make()
+                ->slideOver()
+                ->modalWidth('md')
                 ->icon('heroicon-o-user-plus'),
 
         ];

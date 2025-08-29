@@ -47,7 +47,7 @@ class LifeGroupResource extends Resource
                     ->formatStateUsing(fn($state) => ucfirst($state)),
                 TextColumn::make('leader_id')
                     ->label('Leader')
-                    ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)->full_name)),
+                    ->formatStateUsing(fn($state) => ucfirst(Members::find ($state)?->full_name)),
             ])
             ->filters([
                 //
