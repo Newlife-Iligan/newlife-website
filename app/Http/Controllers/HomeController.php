@@ -10,6 +10,6 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        return view('frontend.layouts.master', compact('user'));
+        return view('frontend.home.index', compact('user'));
     }
 }

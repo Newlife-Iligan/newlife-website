@@ -1,0 +1,375 @@
+/* ===================================================================
+ * Neobrutalism-inspired styles
+ * =================================================================== */
+
+:root {
+    --font-title: "Space Grotesk", sans-serif;
+    --font-main: "Inconsolata", monospace;
+
+    /* Light Theme */
+    --bg-light: #e6e6e6;
+    --text-light: #313B2F;
+    --border-light: #313B2F;
+    --accent-blue-light: #4285f4;
+    --accent-red-light: #ea4335;
+    --accent-yellow-light: #FBA002;
+    --accent-green-light: #34a853;
+    --shadow-light: #313B2F;
+
+    /* Dark Theme */
+    --bg-dark: #313B2F;
+    --text-dark: #FBA002;
+    --border-dark: #FBA002;
+    --accent-blue-dark: #8ab4f8;
+    --accent-red-dark: #f28b82;
+    --accent-yellow-dark: #fbc04f; /* Slightly lighter orange for dark mode accent */
+    --accent-green-dark: #81c995;
+    --shadow-dark: #FBA002;
+
+    /* Default to light theme */
+    --bg: var(--bg-light);
+    --text: var(--text-light);
+    --border: var(--border-light);
+    --accent-blue: var(--accent-blue-light);
+    --accent-red: var(--accent-red-light);
+    --accent-yellow: var(--accent-yellow-light);
+    --accent-green: var(--accent-green-light);
+    --shadow: var(--shadow-light);
+
+    --border-width: 3px;
+    --border-radius: 8px;
+    --shadow-offset: 5px;
+}
+
+[data-theme="dark"] {
+    --bg: var(--bg-dark);
+    --text: var(--text-dark);
+    --border: var(--border-dark);
+    --accent-blue: var(--accent-blue-dark);
+    --accent-red: var(--accent-red-dark);
+    --accent-yellow: var(--accent-yellow-dark);
+    --accent-green: var(--accent-green-dark);
+    --shadow: var(--shadow-dark);
+}
+
+/* ===================================================================
+ * Base Styles
+ * =================================================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-title);
+    font-weight: 700;
+    color: var(--text);
+}
+
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===================================================================
+ * Navbar
+ * =================================================================== */
+.navbar-neo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg);
+    border-bottom: var(--border-width) solid var(--border);
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.navbar-neo__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-neo__logo {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    z-index: 1001; /* Ensure logo is above mobile nav */
+}
+
+.navbar-neo__logo .site-logo {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+    vertical-align: middle;
+}
+
+.navbar-neo__links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-neo__links a {
+    font-family: var(--font-main);
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    padding-bottom: 5px;
+    border-bottom: var(--border-width) solid transparent;
+    transition: all 0.2s ease;
+}
+
+.navbar-neo__links a:hover {
+    border-bottom-color: var(--accent-yellow);
+}
+
+.admin-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; /* Same size as theme switcher icons */
+    height: 24px;
+    color: var(--text);
+}
+
+.admin-link svg {
+    width: 100%;
+    height: 100%;
+}
+
+.hamburger-btn {
+    display: none; /* Hidden by default */
+}
+
+
+/* ===================================================================
+ * Neobrutalist Components
+ * =================================================================== */
+.btn-neo {
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: var(--bg);
+    color: var(--text);
+    border: var(--border-width) solid var(--border);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow);
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-neo:hover {
+    transform: translate(var(--shadow-offset), var(--shadow-offset));
+    box-shadow: 0 0 0 var(--shadow);
+}
+
+.btn-neo-primary {
+    background-color: var(--accent-yellow);
+    color: #1a1a1a;
+}
+
+.card-neo {
+    background-color: var(--bg);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow);
+}
+
+/* ===================================================================
+ * Layout & Sections
+ * =================================================================== */
+.s-section {
+    padding: 6rem 0;
+}
+
+#hero {
+    padding-top: 12rem; /* Make space for the fixed navbar */
+    position: relative;
+    overflow: hidden;
+}
+
+.row-neo {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===================================================================
+ * Hero Background Shapes
+ * =================================================================== */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.hero-shape {
+    position: absolute;
+    border: var(--border-width) solid var(--border);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow);
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape1 {
+    width: 150px;
+    height: 150px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape2 {
+    width: 200px;
+    height: 200px;
+    background-color: var(--accent-blue);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Blob shape */
+    top: 50%;
+    right: 15%;
+    animation-delay: -2s;
+}
+
+.shape3 {
+    width: 100px;
+    height: 100px;
+    background-color: var(--accent-green);
+    top: 70%;
+    left: 20%;
+    animation-delay: -4s;
+}
+
+/* ===================================================================
+ * Theme Switcher
+ * =================================================================== */
+.theme-switcher-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--text);
+}
+
+.theme-switcher-btn svg {
+    display: block;
+}
+
+.theme-switcher-btn .moon {
+    display: none;
+}
+.theme-switcher-btn .sun {
+    display: block;
+}
+
+[data-theme="dark"] .theme-switcher-btn .moon {
+    display: block;
+}
+
+[data-theme="dark"] .theme-switcher-btn .sun {
+    display: none;
+}
+
+/* ===================================================================
+ * Scroll Animations
+ * =================================================================== */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===================================================================
+ * Responsive Styles
+ * =================================================================== */
+@media screen and (max-width: 768px) {
+    .hamburger-btn {
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 22px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1001; /* Ensure hamburger is above mobile nav */
+    }
+
+    .hamburger-btn__line {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--text);
+        transition: all 0.3s;
+    }
+
+    .hamburger-btn__line:nth-child(1) { top: 0; }
+    .hamburger-btn__line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .hamburger-btn__line:nth-child(3) { bottom: 0; }
+    
+    .hamburger-btn.is-active .hamburger-btn__line:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+    .hamburger-btn.is-active .hamburger-btn__line:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-btn.is-active .hamburger-btn__line:nth-child(3) {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+    }
+    
+    .mobile-nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off-screen */
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg);
+        padding: 6rem 2rem 2rem;
+        transition: right 0.4s ease-in-out;
+        z-index: 1000;
+    }
+
+    .mobile-nav.is-active {
+        right: 0;
+    }
+
+    .navbar-neo__links {
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+    }
+    
+    .navbar-neo__links a {
+        font-size: 1.5rem;
+    }
+}
