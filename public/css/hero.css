@@ -1,0 +1,142 @@
+
+
+
+
+
+
+
+#hero {
+
+
+
+    background-image: url('/images/hero-bg-3000.jpg');
+
+
+
+    background-size: cover;
+
+
+
+    background-position: center;
+
+
+
+    height: 100vh;
+
+
+
+    display: flex;
+
+
+
+    justify-content: center;
+
+
+
+    align-items: center;
+
+
+
+    text-align: center;
+
+
+
+    color: rgba(255, 255, 255, 0.9);
+
+
+
+}
+
+
+
+
+
+
+
+#hero .hero-content h1 {
+
+
+
+    font-size: 4rem;
+
+
+
+    font-weight: 700;
+
+
+
+    margin-bottom: 0.5rem;
+
+
+
+    color: rgba(255, 255, 255, 0.9);
+
+
+
+    text-shadow:
+
+
+
+        2.5px 2.5px 0 var(--accent-yellow-light),
+
+
+
+        5px 5px 0 var(--accent-yellow-light),
+
+
+
+        7.5px 7.5px 0 var(--accent-yellow-light);
+
+
+
+}
+
+
+
+
+
+
+
+#hero .hero-content .subhead {
+
+
+
+    font-size: 6rem;
+
+
+
+    font-weight: 900;
+
+
+
+    line-height: 1.2;
+
+
+
+    color: rgba(255, 255, 255, 0.95);
+
+
+
+    text-shadow:
+
+
+
+        4px 4px 0 var(--accent-yellow-light),
+
+
+
+        8px 8px 0 var(--accent-yellow-light),
+
+
+
+        12px 12px 0 var(--accent-yellow-light);
+
+
+
+}
+
+
+
+
+
+

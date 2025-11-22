@@ -5,23 +5,10 @@
     <!-- hero
     ================================================== -->
     <section id="hero" class="s-section target-section">
-        <div class="hero-shape shape1"></div>
-        <div class="hero-shape shape2"></div>
-        <div class="hero-shape shape3"></div>
         <div class="row-neo hero-content">
             <div class="column large-full">
-                <h1 class="reveal-on-scroll">
-                    A New Life in Christ. <br>
-                    A New Community to Belong.
-                </h1>
-                <p class="lead reveal-on-scroll">
-                    Welcome to Hesed! We are a vibrant community of believers passionate about
-                    loving God and loving people. Explore what's new and get connected.
-                </p>
-                <div class="hero-content__buttons reveal-on-scroll">
-                    <a href="#about" class="btn-neo btn-neo-primary">Learn More</a>
-                    <a href="#connect" class="btn-neo">Get Connected</a>
-                </div>
+                <h1 class="h-text-center">NEW LIFE ILIGAN</h1>
+                <p class="subhead h-text-center">Making Jesus Known</p>
             </div>
         </div>
     </section> <!-- end s-hero -->

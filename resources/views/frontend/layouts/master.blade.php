@@ -14,6 +14,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/neobrutalism.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/hero.css') }}">
 
     <!-- favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
