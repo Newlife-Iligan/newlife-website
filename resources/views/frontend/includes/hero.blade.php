@@ -15,10 +15,11 @@
             </h1>
 
             <div class="hero-content__buttons">
-                <a href="events.html" class="btn btn--stroke">Upcoming Events</a>
+                @livewire('new-member-button')
                 <a href="about.html" class="btn btn--stroke">About Us</a>
             </div>
         </div> <!-- end hero-content__text -->
+        @livewire('create-member-modal')
 
     </div> <!-- end hero-content -->
 
