@@ -34,6 +34,7 @@ class FinanceController extends Controller
         $browsershot = Browsershot::html($html)
             ->setNodeBinary(env('NODE_BINARY', 'node'))
             ->setNpmBinary(env('NPM_BINARY', 'npm'))
+            ->noSandbox()
             ->format('A4')
             ->margins(10, 10, 10, 10)
             ->showBackground();
