@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\Actions\DownloadPDF;
 use App\Filament\Resources\Actions\PrintForm;
 use App\Filament\Resources\NlFinanceResource\Pages;
 use App\Filament\Resources\NlFinanceResource\RelationManagers;
@@ -247,6 +248,19 @@ class NlFinanceResource extends Resource
                     ->sortable(),
                 TextColumn::make('cv_particular')
                     ->sortable()
+                    ->default(1)
+                    ->formatStateUsing(function($record){
+                        if(!empty($record->cv_particular))
+                        {
+                            return $record->cv_particular;
+                        }else if(!empty($record->ar_particular))
+                        {
+                            return $record->ar_particular;
+                        }
+                        else{
+                            return "N/A";
+                        }
+                    })
                     ->label('Particular'),
                 TextColumn::make('cv_received_by')
                     ->label('Received By')
@@ -257,8 +271,8 @@ class NlFinanceResource extends Resource
             ])
             ->actions([
                 PrintForm::make(),
+                DownloadPDF::make(),
                 Tables\Actions\EditAction::make()
-                    ->hidden(!$is_finance)
                     ->modalHeading('NewLife Finance Form'),
             ])
             ->bulkActions([

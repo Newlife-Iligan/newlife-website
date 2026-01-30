@@ -3,10 +3,15 @@
     font-family: Arial, serif;
     width: fit-content;
     margin: auto;
+    max-width: 700px;
 }
 
 .mt-20{
     margin-top: 20px
+}
+
+.mt-40{
+    margin-top: 40px
 }
 
 .f-14{
@@ -37,15 +42,54 @@
     background: rgb(232, 230, 230);
 }
 
+.px-5{
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
 td {
     width: 120px;
 }
 
+.text-indent {
+    text-indent: 30px;
+}
 .bb-1{
     border-bottom: 1px solid black;
 }
 
 hr{
     border-top: 1px solid rgba(200, 200, 200, 0.3);;
+}
+
+.ar_form{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.m-0{
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.px-10
+{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.mw-400
+{
+    min-width: 500px;
+}
+
+.mw-100
+{
+    min-width: 30px;
+    text-align: center;
+}
+
+.mw-150
+{
+    max-width: 200px;
 }
