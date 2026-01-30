@@ -31,13 +31,18 @@ class FinanceController extends Controller
 
         $html = view('finance.print.cv_form', compact('data'))->render();
 
-        $pdf = Browsershot::html($html)
-            ->setNodeBinary(config('browsershot.node_binary', 'node'))
-            ->setNpmBinary(config('browsershot.npm_binary', 'npm'))
+        $browsershot = Browsershot::html($html)
+            ->setNodeBinary(env('NODE_BINARY', 'node'))
+            ->setNpmBinary(env('NPM_BINARY', 'npm'))
             ->format('A4')
             ->margins(10, 10, 10, 10)
-            ->showBackground()
-            ->pdf();
+            ->showBackground();
+
+        if ($chromePath = env('CHROME_PATH')) {
+            $browsershot->setChromePath($chromePath);
+        }
+
+        $pdf = $browsershot->pdf();
 
         return response($pdf, 200, [
             'Content-Type' => 'application/pdf',
