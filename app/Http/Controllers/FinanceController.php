@@ -29,13 +29,13 @@ class FinanceController extends Controller
 
         $filename = 'finance_' . $data->form_type . '_' . now()->format('Ymd_His') . '.pdf';
 
-        $html = view('finance.print.cv_form', compact('data'))->render();
+        $token = env('BROWSERLESS_API_TOKEN');
+        $printUrl = url("/finance/print/{$id}");
 
-        $response = Http::withToken(env('BROWSERLESS_API_TOKEN'))
-            ->withHeaders(['Content-Type' => 'application/json'])
-            ->timeout(30)
-            ->post('https://production-sfo.browserless.io/chromium/pdf', [
-                'html' => $html,
+        $response = Http::withHeaders(['Content-Type' => 'application/json'])
+            ->timeout(60)
+            ->post("https://production-sfo.browserless.io/chrome/pdf?token={$token}", [
+                'url' => $printUrl,
                 'options' => [
                     'format' => 'A4',
                     'printBackground' => true,
