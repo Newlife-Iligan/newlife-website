@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NlFinance;
 use Illuminate\Http\Request;
-use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Facades\Http;
 
 class FinanceController extends Controller
 {
@@ -31,21 +31,28 @@ class FinanceController extends Controller
 
         $html = view('finance.print.cv_form', compact('data'))->render();
 
-        $browsershot = Browsershot::html($html)
-            ->setNodeBinary(env('NODE_BINARY', 'node'))
-            ->setNpmBinary(env('NPM_BINARY', 'npm'))
-            ->noSandbox()
-            ->format('A4')
-            ->margins(10, 10, 10, 10)
-            ->showBackground();
+        $response = Http::withToken(env('BROWSERLESS_API_TOKEN'))
+            ->withHeaders(['Content-Type' => 'application/json'])
+            ->timeout(30)
+            ->post('https://production-sfo.browserless.io/chromium/pdf', [
+                'html' => $html,
+                'options' => [
+                    'format' => 'A4',
+                    'printBackground' => true,
+                    'margin' => [
+                        'top' => '10mm',
+                        'right' => '10mm',
+                        'bottom' => '10mm',
+                        'left' => '10mm',
+                    ],
+                ],
+            ]);
 
-        if ($chromePath = env('CHROME_PATH')) {
-            $browsershot->setChromePath($chromePath);
+        if ($response->failed()) {
+            return response()->json(['PDF generation failed.'], 500);
         }
 
-        $pdf = $browsershot->pdf();
-
-        return response($pdf, 200, [
+        return response($response->body(), 200, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
