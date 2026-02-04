@@ -76,9 +76,9 @@
                 <div id="ar_form" class="ar_form">
                     <table>
                         <tr>
-                            <td class="text-center bb-1 bg-value px-10" colspan="2">{{\App\Models\Members::find($data->ar_received_by)->fullName}}</td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2" style="white-space: nowrap;">{{\App\Models\Members::find($data->ar_received_by)->fullName}}</td>
                             <td colspan="2"></td>
-                            <td class="text-center bb-1 bg-value px-10" colspan="2">{{\App\Models\Members::find($data->ar_disbursed_by)->fullName}}</td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->ar_disbursed_by)->fullName}}</td>
                         </tr>
                         <tr>
                             <td class="text-center f-14" colspan="2">Received By</td>
@@ -149,9 +149,9 @@
                 <div id="cv_form" class="ar_form">
                     <table>
                         <tr>
-                            <td class="text-center bb-1 bg-value px-10" colspan="2">{{\App\Models\Members::find($data->cv_received_by)->fullName}}</td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->cv_received_by)->fullName}}</td>
                             <td colspan="2"></td>
-                            <td class="text-center bb-1 bg-value px-10" colspan="2">{{\App\Models\Members::find($data->cv_disbursed_by)->fullName}}</td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->cv_disbursed_by)->fullName}}</td>
                         </tr>
                         <tr>
                             <td class="text-center f-14" colspan="2">Received By</td>
@@ -163,7 +163,7 @@
                         </tr>
                         <tr>
                             <td colspan="2"></td>
-                            <td class="text-center bb-1 bg-value px-10" colspan="2">{{\App\Models\Members::find($data->cv_approved_by)->fullName}}</td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->cv_approved_by)->fullName}}</td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
