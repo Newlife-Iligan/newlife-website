@@ -137,9 +137,8 @@ class PurchaseApprovalRequestResource extends Resource
                     $total = 0;
                     try {
                         foreach ($items as $item) {
-                            $qty= $item["quantity"];
                             $amount = $item["unit_price"];
-                            $total += $qty * (float)$amount;
+                            $total += (float)$amount;
                         }
                         $rec = PurchaseApprovalRequest::find($record->id);
                         $rec->total_amount = $total;
