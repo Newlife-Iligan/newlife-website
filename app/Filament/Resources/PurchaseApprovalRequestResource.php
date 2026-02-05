@@ -51,10 +51,12 @@ class PurchaseApprovalRequestResource extends Resource
                 Select::make('head_id')
                     ->label('Dept Head Name')
                     ->searchable()
+                    ->preload()
                     ->options(Members::all()->pluck('fullName','id')),
                 Select::make('department_id')
                     ->label('Department')
                     ->searchable()
+                    ->preload()
                     ->options(Ministry::all()->pluck('name','id')),
                 Select::make('department_position')
                     ->label('Department Position')
@@ -118,10 +120,12 @@ class PurchaseApprovalRequestResource extends Resource
                 SelectFilter::make('head_id')
                     ->label('Head')
                     ->multiple()
+                    ->preload()
                     ->options(Members::all()->pluck('fullName','id')),
                 SelectFilter::make('department_id')
                     ->label('Department')
                     ->multiple()
+                    ->preload()
                     ->options(Ministry::all()->pluck('name','id')),
             ])
             ->actions([
