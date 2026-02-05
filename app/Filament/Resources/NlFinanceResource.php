@@ -462,7 +462,7 @@ class NlFinanceResource extends Resource
                     ->modalHeading('NewLife Finance Form'),
                 Tables\Actions\DeleteAction::make()
                     ->iconButton()
-                    ->visible($is_finance)
+                    ->visible(fn() => Auth::user()->isSuperAdmin())
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

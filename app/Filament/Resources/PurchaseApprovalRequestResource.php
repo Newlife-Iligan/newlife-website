@@ -72,7 +72,7 @@ class PurchaseApprovalRequestResource extends Resource
                     ->default(now())
                     ->required(),
                 Repeater::make('items')
-                    ->label('Items (Total Amount: ₱1.0)')
+                    ->label('Items')
                     ->addActionLabel('Add Item')
                     ->schema([
                         TextInput::make('item_name')
