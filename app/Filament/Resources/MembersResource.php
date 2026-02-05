@@ -49,6 +49,11 @@ class MembersResource extends Resource
                 TextInput::make('last_name'),
                 TextInput::make('nickname'),
                 Select::make('role')
+                    ->hiddenOn('create')
+                    ->disabled(function($record){
+                        $isSuperAdmin = Auth::user()->isSuperAdmin();
+                        return !$isSuperAdmin;
+                    })
                     ->relationship('roles','name'),
                 DatePicker::make('birthday'),
                 TextInput::make('address')
@@ -102,17 +107,6 @@ class MembersResource extends Resource
                     ->formatStateUsing(fn($state) => strtoupper($state)),
                 TextColumn::make('role')
                     ->badge()
-//                    ->color(fn ($state): string => match ($state) {
-//                        1 => 'gray',
-//                        2 => 'warning',
-//                        3 => 'success',
-//                        4 => 'danger',
-//                        5 => 'info',
-//                        6 => 'primary',
-//                        7 => 'secondary',
-//                        8 => 'secondary-dark',
-//                        9 => 'primary-dark',
-//                    })
                     ->color(fn($state)=> Color::rgb(MemberRole::find($state)->color ?? "rgb(192,192,192)"))
                     ->sortable()
                     ->searchable()

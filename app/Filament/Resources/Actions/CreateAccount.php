@@ -34,6 +34,7 @@ class CreateAccount extends Action
                     ->default(fn($record) => $record->fullName)
                     ->readonly(),
                 TextInput::make('email')
+                    ->required()
                     ->default(fn($record) => $record->email)
                     ->readonly(),
                 TextInput::make('password')
@@ -78,8 +79,6 @@ class CreateAccount extends Action
                         ->danger()
                         ->send();
                 }
-
-
             })
             ->hidden(fn($record) => $record->user)
             ->color(Color::Teal);

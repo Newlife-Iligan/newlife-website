@@ -27,6 +27,7 @@ class MyAdminPanelProvider extends PanelProvider
             ->id('my-admin')
             ->path('my-admin')
             ->login()
+            ->profile()
             ->brandLogo(asset('images/mylogo.png'))
             ->homeUrl('/')
             ->sidebarCollapsibleOnDesktop()

@@ -24,4 +24,7 @@ Route::get('/api/zapier/docs', function (){
 });
 
 Route::get('/finance/print/{id}', [FinanceController::class,'printForm'])->name('finance.print');
+Route::get('/finance/print_approval/{id}', [FinanceController::class,'printApproval'])->name('finance.print.approval');
+
 Route::get('/finance/download/{id}', [FinanceController::class,'downloadForm'])->name('finance.pdf');
+Route::get('/finance/download_approval/{id}', [FinanceController::class,'downloadApproval'])->name('finance.pdf.approval');
