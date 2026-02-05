@@ -150,11 +150,11 @@ class MembersResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make()
                         ->slideOver()
+                        ->visible(fn($record) => Auth::user()->member_id == $record->id || Auth::user()->isSuperAdmin())
                         ->modalWidth('md'),
                     CreateAccount::make(),
-                    Tables\Actions\Action::make('reset_password')
-                        ->icon('heroicon-o-lock-open'),
                     Tables\Actions\Action::make('send_credentials')
+
                         ->icon('heroicon-o-envelope')
                         ->form([
                             TextInput::make('email')
@@ -223,8 +223,9 @@ class MembersResource extends Resource
                                     ->send();
                             }
                         })
-                        ->hidden(fn($record) => !$record->user),
+                        ->hidden(fn($record) => !$record->user || !Auth::user()->isSuperAdmin() || !Auth::user()->isFinance()),
                     Tables\Actions\DeleteAction::make()
+                        ->hidden(!Auth::user()->isSuperAdmin())
                 ])
             ])
             ->bulkActions([
