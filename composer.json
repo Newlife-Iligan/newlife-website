@@ -11,6 +11,8 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "mpdf/mpdf": "^8.2",
+        "pxlrbt/filament-excel": "^2.5",
+        "resend/resend-laravel": "^1.1",
         "spatie/browsershot": "^5.2"
     },
     "require-dev": {

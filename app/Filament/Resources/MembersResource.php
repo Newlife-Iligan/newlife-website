@@ -29,6 +29,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendCredentialsMail;
+use Filament\Forms\Components\ToggleButtons;
+use Filament\Notifications\Notification;
 
 class MembersResource extends Resource
 {
@@ -148,6 +152,78 @@ class MembersResource extends Resource
                         ->slideOver()
                         ->modalWidth('md'),
                     CreateAccount::make(),
+                    Tables\Actions\Action::make('reset_password')
+                        ->icon('heroicon-o-lock-open'),
+                    Tables\Actions\Action::make('send_credentials')
+                        ->icon('heroicon-o-envelope')
+                        ->form([
+                            TextInput::make('email')
+                                ->label('Email')
+                                ->email()
+                                ->required()
+                                ->default(fn($record) => $record->user?->email ?? $record->email),
+                            TextInput::make('password')
+                                ->label('Password')
+                                ->required()
+                                ->password(fn($get) => !$get('show_password'))
+                                ->reactive()
+                                ->default('newlife.2025'),
+                            ToggleButtons::make('show_password')
+                                ->label('Show Password')
+                                ->reactive()
+                                ->default(false)
+                                ->boolean()
+                                ->inline()
+                                ->grouped(),
+                        ])
+                        ->slideOver()
+                        ->modalWidth('md')
+                        ->action(function ($record, array $data) {
+                            $user = $record->user;
+
+                            if (!$user) {
+                                Notification::make()
+                                    ->title('No account found')
+                                    ->body('This member does not have an account yet. Please create an account first.')
+                                    ->danger()
+                                    ->send();
+                                return;
+                            }
+
+                            if (!$data['email']) {
+                                Notification::make()
+                                    ->title('Email required')
+                                    ->body('Please provide an email address to send the credentials.')
+                                    ->danger()
+                                    ->send();
+                                return;
+                            }
+
+                            try {
+                                // Update the user's password in the database
+                                $user->password = $data['password'];
+                                $user->save();
+
+                                Mail::to($data['email'])->send(new SendCredentialsMail(
+                                    member: $record,
+                                    user: $user,
+                                    password: $data['password']
+                                ));
+
+                                Notification::make()
+                                    ->title('Credentials sent')
+                                    ->body("Password updated and credentials have been sent to {$data['email']}.")
+                                    ->success()
+                                    ->send();
+                            } catch (\Exception $e) {
+                                Notification::make()
+                                    ->title('Failed to send email')
+                                    ->body("Error: {$e->getMessage()}")
+                                    ->danger()
+                                    ->send();
+                            }
+                        })
+                        ->hidden(fn($record) => !$record->user),
                     Tables\Actions\DeleteAction::make()
                 ])
             ])

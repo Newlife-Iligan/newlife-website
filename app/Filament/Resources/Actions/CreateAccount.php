@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Actions;
 
+use App\Mail\SendCredentialsMail;
 use App\Models\User;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
@@ -12,6 +13,7 @@ use Filament\Notifications\Notification;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Actions\Action;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CreateAccount extends Action
 {
@@ -66,16 +68,24 @@ class CreateAccount extends Action
                     $new_user->member_id = $member_id;
                     $new_user->password = $data['password'];
                     $new_user->save();
+
+                    // Send credentials email
+                    Mail::to($data['email'])->send(new SendCredentialsMail(
+                        member: $record,
+                        user: $new_user,
+                        password: $data['password']
+                    ));
+
                     Notification::make('success')
                         ->title('Account created')
-                        ->body("{$new_user->name} account has been created. He/She can now login with the new account.")
+                        ->body("{$new_user->name} account has been created and credentials have been sent to {$data['email']}.")
                         ->success()
                         ->send();
                 }
                 catch (\Exception $exception){
                     Notification::make('failure')
                         ->title('Account failed to create')
-                        ->body("{$new_user->name} account failed to create. Reason: {$exception->getMessage()}")
+                        ->body("Account failed to create. Reason: {$exception->getMessage()}")
                         ->danger()
                         ->send();
                 }

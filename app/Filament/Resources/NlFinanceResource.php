@@ -438,6 +438,14 @@ class NlFinanceResource extends Resource
                     ->date('M d, Y')
             ])
             ->filters([
+                Filter::make('active')
+                    ->baseQuery(function(Builder $query){
+                        if(Auth::user()->isFinance() || Auth::user()->isSuperAdmin())
+                            return $query;
+                        $query->where('cv_received_by', Auth::user()->member_id)
+                        ->orWhere('ar_received_by', Auth::user()->member_id);
+                    })
+                    ->form([]),
                 Filter::make('created_at')
                     ->form([
                         DatePicker::make('created_from'),
@@ -458,15 +466,15 @@ class NlFinanceResource extends Resource
             ->actions([
                 PrintForm::make(),
                 DownloadPDF::make(),
-                Tables\Actions\EditAction::make()
-                    ->modalHeading('NewLife Finance Form'),
-                Tables\Actions\DeleteAction::make()
-                    ->iconButton()
-                    ->visible(fn() => Auth::user()->isSuperAdmin())
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->modalHeading('NewLife Finance Form'),
+                    Tables\Actions\DeleteAction::make()
+                        ->visible(fn() => Auth::user()->isSuperAdmin())
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
