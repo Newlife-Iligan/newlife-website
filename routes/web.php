@@ -28,3 +28,7 @@ Route::get('/finance/print_approval/{id}', [FinanceController::class,'printAppro
 
 Route::get('/finance/download/{id}', [FinanceController::class,'downloadForm'])->name('finance.pdf');
 Route::get('/finance/download_approval/{id}', [FinanceController::class,'downloadApproval'])->name('finance.pdf.approval');
+
+Route::get('/spin-the-wheel', function () {
+    return view('extras.double-spin-wheel');
+});
