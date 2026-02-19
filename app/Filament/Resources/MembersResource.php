@@ -150,11 +150,13 @@ class MembersResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make()
                         ->slideOver()
-                        ->visible(fn($record) => Auth::user()->member_id == $record->id || Auth::user()->isSuperAdmin())
+                        ->visible(fn($record) => Auth::user()->member_id == $record->id || Auth::user()->isSuperAdmin()
+                            || Auth::user()->isFinance() || Auth::user()->isAdmin())
                         ->modalWidth('md'),
-                    CreateAccount::make(),
+                    CreateAccount::make()
+                        ->visible(fn($record) => Auth::user()->member_id == $record->id || Auth::user()->isSuperAdmin()
+                            || Auth::user()->isFinance() || Auth::user()->isAdmin()),
                     Tables\Actions\Action::make('send_credentials')
-
                         ->icon('heroicon-o-envelope')
                         ->form([
                             TextInput::make('email')
