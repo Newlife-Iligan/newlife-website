@@ -77,6 +77,16 @@ class User extends Authenticatable implements FilamentUser
         return false;
     }
 
+    public function canAccessAuditForms(): bool
+    {
+        $member = Members::find($this->member_id);
+        if($member){
+            return $member->can_access_audit_forms;
+        }else{
+            return false;
+        }
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return true;

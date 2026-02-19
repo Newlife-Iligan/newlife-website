@@ -34,7 +34,7 @@ class AuditFormResource extends Resource
 
     public static function canAccess(): bool
     {
-        $is_finance = Auth::user()->isFinance();
+        $is_finance = Auth::user()->canAccessAuditForms();
         if($is_finance)
             return true;
         else

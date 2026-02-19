@@ -59,6 +59,14 @@ class MembersResource extends Resource
                         return !$isSuperAdmin;
                     })
                     ->relationship('roles','name'),
+                ToggleButtons::make('can_access_audit_forms')
+                    ->boolean()
+                    ->label('Can Access Audit Forms')
+                    ->grouped()
+                    ->default(0)
+                    ->visible(fn($record) => Auth::user()->member_id == $record->id || Auth::user()->isSuperAdmin()
+                        || Auth::user()->isFinance() || Auth::user()->isAdmin())
+                    ->inline(),
                 DatePicker::make('birthday'),
                 TextInput::make('address')
                     ->prefixIcon('heroicon-o-home'),
