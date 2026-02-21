@@ -177,7 +177,7 @@ class MembersResource extends Resource
                                 ->required()
                                 ->password(fn($get) => !$get('show_password'))
                                 ->reactive()
-                                ->default('newlife.2025'),
+                                ->default('newlife.2026'),
                             ToggleButtons::make('show_password')
                                 ->label('Show Password')
                                 ->reactive()
@@ -233,7 +233,7 @@ class MembersResource extends Resource
                                     ->send();
                             }
                         })
-                        ->hidden(fn($record) => !$record->user || !Auth::user()->isSuperAdmin() || !Auth::user()->isFinance()),
+                        ->visible(fn($record) => Auth::user()->isSuperAdmin() || Auth::user()->isFinance()),
                     Tables\Actions\DeleteAction::make()
                         ->hidden(!Auth::user()->isSuperAdmin())
                 ])
