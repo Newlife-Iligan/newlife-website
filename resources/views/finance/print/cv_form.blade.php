@@ -56,7 +56,7 @@
 <body>
     <div class="container">
         <div class="cv-form-container">
-            @if($data->form_type == 'ar_only' || $data->form_type == 'cv_ar')
+            @if($data->form_type == 'ar_only' || $data->form_type == 'cv_ar' || $data->form_type == 'ch_ar')
                 <h3 class="m-0">NEW LIFE CHRISTIAN CENTER (INM), INC.</h3>
                 <h4 class="m-0">Iligan City, 9200</h4>
                 <p style="text-align: right;">AR No: <span class="bb-1 bg-value p-4" style="font-size: small; padding: 3px;">{{$data->ar_number}}</span></p>
@@ -89,7 +89,7 @@
                 </div>
             @endif
 
-            @if($data->form_type == 'cv_ar')
+            @if($data->form_type == 'cv_ar' || $data->form_type == 'ch_ar')
                 <hr>
             @endif
             @if($data->form_type == 'cv_only' || $data->form_type == 'cv_ar')
@@ -138,6 +138,88 @@
                             </tr>
                             <tr>
                                 <td class="text-right f-14 mw-400">Return Mode:</td>
+                                <td class="mw-100"> --- </td>
+                                <td class="text-value mw-150"></td>
+                            </tr>
+                        </table>
+
+                        <p><small>Department:</small> <span class="bg-value px-10">{{\App\Models\Ministry::find($data->department)->name}}</span></p>
+                    </div>
+                </div>
+                <div id="cv_form" class="ar_form">
+                    <table>
+                        <tr>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->cv_received_by)->fullName}}</td>
+                            <td colspan="2"></td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->cv_disbursed_by)->fullName}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center f-14" colspan="2">Received By</td>
+                            <td colspan="2"></td>
+                            <td class="text-center f-14" colspan="2">Disbursed By</td>
+                        </tr>
+                        <tr>
+                            <td height="30px"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="text-center bb-1 bg-value px-10" colspan="2"  style="white-space: nowrap;">{{\App\Models\Members::find($data->cv_approved_by)->fullName}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="text-center f-14" colspan="2">Approved By</td>
+                        </tr>
+                    </table>
+                </div>
+            @endif
+
+            @if($data->form_type == 'ch_only' || $data->form_type == 'ch_ar')
+                <h3 class="m-0">NEW LIFE CHRISTIAN CENTER (INM), INC.</h3>
+                <h4 class="m-0">Iligan City, 9200</h4>
+                <p style="text-align: right;">Check Voucher No: <span class="bg-value p-4" style="font-size: small; padding: 3px;">{{$data?->check_number ?? "_________" }}</span></p>
+                <p style="text-align: right;">Date: <span class="bg-value p-4" style="font-size: small; padding: 3px;">{{$data->cv_date}}</span></p>
+                <div>
+                    <div class="text-left">
+                        <p class="mb-5">Check No.: <span class="bg-value px-10">{{$data->chv_number}}</span></p>
+                        <p class="m-0">Name: <span class="bg-value px-10">{{\App\Models\Members::find($data->cv_received_by)->fullName}}</span></p>
+                        <p class="m-0">Address: <span class=" bg-value px-10">{{$data->cv_address}}</span></p>
+                    </div>
+                    <div class="text-left mt-40">
+                        <small>In payment of:</small>
+                        <table>
+                            <tr>
+                                <td class="text-value mw-400">{{$data->cv_particular}}</td>
+                                <td class="mw-100"> --- </td>
+                                <td class="text-value mw-150">₱{{number_format($data->cv_amount,2)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-value mw-400"></td>
+                                <td class="mw-100"> --- </td>
+                                <td class="text-value mw-150"></td>
+                            </tr>
+                            <tr>
+                                <td height="20px"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right f-14 mw-400">TOTAL:</td>
+                                <td class="mw-100"> --- </td>
+                                <td class="text-value mw-150">₱{{number_format($data->cv_amount,2)}}</td>
+                            </tr>
+                            <tr>
+                                <td height="20px"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right f-14 mw-400">Actual Amt:</td>
+                                <td class="mw-100"> --- </td>
+                                <td class="text-value mw-150">₱</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right f-14 mw-400">Return Amt:</td>
+                                <td class="mw-100"> --- </td>
+                                <td class="text-value mw-150">₱</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right f-14 mw-400">Refund Mode:</td>
                                 <td class="mw-100"> --- </td>
                                 <td class="text-value mw-150"></td>
                             </tr>
