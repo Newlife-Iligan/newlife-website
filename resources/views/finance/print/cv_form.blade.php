@@ -178,13 +178,13 @@
             @if($data->form_type == 'ch_only' || $data->form_type == 'ch_ar')
                 <h3 class="m-0">NEW LIFE CHRISTIAN CENTER (INM), INC.</h3>
                 <h4 class="m-0">Iligan City, 9200</h4>
-                <p style="text-align: right;">Check Voucher No: <span class="bb-1 p-4" style="font-size: small; padding: 3px;">{{$data?->check_number ?? "_________" }}</span></p>
+                <p style="text-align: right;">Check Voucher No: <span class="bb-1 p-4" style="font-size: small; padding: 3px;">{{$data?->check_number ?? "" }}</span></p>
                 <p style="text-align: right;">Date: <span class="bb-1 p-4" style="font-size: small; padding: 3px;">{{$data->cv_date}}</span></p>
                 <div>
                     <div class="text-left">
                         <p class="mb-5">Check No.: <span class="bb-1 px-10">{{$data->chv_number}}</span></p>
                         <p class="m-0">Name: <span class="bb-1 px-10">{{\App\Models\Members::find($data->cv_received_by)->fullName}}</span></p>
-                        <p class="m-0">Address: <span class=" bb-1 px-10">{{$data->cv_address}}</span></p>
+                        <p class="m-0">Address: <span class="bb-1 px-10">{{$data->cv_address}}</span></p>
                     </div>
                     <div class="text-left mt-40">
                         <small>In payment of:</small>
