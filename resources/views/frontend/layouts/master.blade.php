@@ -43,13 +43,9 @@
     <div class="row row-y-center about-content">
 
         <div class="column large-half medium-full">
-            <h3 class="subhead">Welcome to Hesed {{$user?->name}} ({{$user?->email}})</h3>
+            <h3 class="subhead">Welcome to New Life - Iligan</h3>
             <p class="lead">
-                Vero autem et officiis officia sint in odio in iusto.
-                Blanditiis tempore ipsa saepe quaerat quas sed. Ut velit
-                necessitatibus est repellat sunt quia fuga doloremque.
-                Nostrum et ut optio suscipit eos quisquam et. Nulla molestiae
-                voluptates hic et accusantium occaecati recusandae veniam cum.
+                New Life Iligan is a Christ-centered community pioneered in 2017 by Lead Pastors Miguel Joven Tan Perfecto and Aurora Dawn Vedra Perfecto. Prior to planting the church, the couple demonstrated their dedication by volunteering in the worship team and leading the church's youth ministry, YouthGen. Driven by their deep passion and obedience to God, they established New Life Iligan to impact lives for His glory , proudly standing as one of the 51 New Life network churches located around the world.
             </p>
             <a href="about.html" class="btn btn--primary btn--about">More About Hesed</a>
         </div>
@@ -59,22 +55,22 @@
                 <li>
                     <h4>Main Church Service</h4>
                     <p>
-                        Sunday - 9:00 AM | 1:00 PM | 4:30 PM <br>
-                        1600 Amphitheatre Parkway, Mt. View, CA, 94043
+                        Sunday - 10:00 AM | 4:00 PM <br>
+                        2nd Floor AEGS Building Purok 17 Bonifacio Highway, Iligan City, Philippines, 9200
                     </p>
                 </li>
                 <li>
-                    <h4>Kids Church</h4>
+                    <h4>Praise and Prayer</h4>
                     <p>
-                        Sunday - 9:00 AM | 1:00 PM | 4:30 PM <br>
-                        1600 Amphitheatre Parkway, Mt. View, CA, 94043
+                        Every 1st & 3rd Wednesday - 6:00 PM <br>
+                        2nd Floor AEGS Building Purok 17 Bonifacio Highway, Iligan City, Philippines, 9200
                     </p>
                 </li>
                 <li>
-                    <h4>Prayer Meeting</h4>
+                    <h4>New Generation (Youth Service)</h4>
                     <p>
-                        Saturday - 7:00 PM <br>
-                        1600 Amphitheatre Parkway, Mt. View, CA, 94043
+                        Every 2nd & 4th Friday - 6:00 PM <br>
+                        2nd Floor AEGS Building Purok 17 Bonifacio Highway, Iligan City, Philippines, 9200
                     </p>
                 </li>
             </ul> <!-- end about-sched-->
