@@ -189,32 +189,23 @@
                     <div class="text-left mt-40">
                         <small>In payment of:</small>
                         <table>
-                            @php
-                                $purposes = $data?->c_purpose_amount;
-                                $total_amount = array_sum(array_column($purposes, 'amount'));
-                            @endphp
-                            @if(count($purposes) > 0)
-                                @foreach($purposes as $purpose)
-                                    <tr>
-                                        <td class="bb-1 mw-400">{{$purpose["purpose"]}}</td>
-                                        <td class="mw-100"> --- </td>
-                                        <td class="bb-1 mw-150">₱{{number_format($purpose["amount"],2)}}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td class="bb-1 mw-400"></td>
-                                    <td class="mw-100"> --- </td>
-                                    <td class="bb-1 mw-150"></td>
-                                </tr>
-                            @endif
+                            <tr>
+                                <td class="bb-1 mw-400">{{$data->cv_particular}}</td>
+                                <td class="mw-100"> --- </td>
+                                <td class="bb-1 mw-150">₱{{number_format($data->cv_amount,2)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="bb-1 mw-400"></td>
+                                <td class="mw-100"> --- </td>
+                                <td class="bb-1 mw-150"></td>
+                            </tr>
                             <tr>
                                 <td height="20px"></td>
                             </tr>
                             <tr>
                                 <td class="text-right f-14 mw-400">TOTAL:</td>
                                 <td class="mw-100"> --- </td>
-                                <td class="bb-1 mw-150">₱{{number_format($total_amount,2)}}</td>
+                                <td class="bb-1 mw-150">₱{{number_format($data->cv_amount,2)}}</td>
                             </tr>
                             <tr>
                                 <td height="20px"></td>

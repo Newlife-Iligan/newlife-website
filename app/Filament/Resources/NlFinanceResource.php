@@ -13,6 +13,7 @@ use App\Models\NlFinance;
 use Database\Seeders\NLAccountSeeder;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -72,6 +73,7 @@ class NlFinanceResource extends Resource
                                 "Activity" => "Activity",
                                 "Event" => "Event",
                             ])
+                            ->default('Activity')
                             ->label('Type'),
                         DatePicker::make('cv_date')
                             ->default(now())
@@ -79,12 +81,27 @@ class NlFinanceResource extends Resource
                             ->label('Date'),
                         TextInput::make('cv_address')
                             ->label('Address'),
-                        TextInput::make('cv_particular')
-                            ->required()
-                            ->label('Particular/Purpose'),
-                        TextInput::make('cv_amount')
-                            ->prefix('₱')
-                            ->label('Amount'),
+//                        TextInput::make('cv_particular')
+//                            ->required()
+//                            ->label('Particular/Purpose'),
+//                        TextInput::make('cv_amount')
+//                            ->prefix('₱')
+//                            ->label('Amount'),
+                        Repeater::make('c_purpose_amount')
+                            ->label('Purpose and Amount')
+                            ->addActionLabel('Add')
+                            ->schema([
+                                TextInput::make('purpose')
+                                    ->required()
+                                    ->columnSpan(2)
+                                    ->label('Purpose/Particular'),
+                                TextInput::make('amount')
+                                    ->prefix('₱')
+                                    ->default(0.00)
+                                    ->label('Amount')
+                                    ->required()
+                            ])
+                            ->columns(3),
                         Select::make('returned_amt_receiver')
                             ->label('Returned Amount Receiver')
                             ->searchable()
@@ -211,6 +228,7 @@ class NlFinanceResource extends Resource
                                 "Activity" => "Activity",
                                 "Event" => "Event",
                             ])
+                            ->default('Activity')
                             ->label('Type'),
                         TextInput::make('check_number')
                             ->label('Check Number'),
@@ -222,12 +240,27 @@ class NlFinanceResource extends Resource
                             ->label('Date'),
                         TextInput::make('cv_address')
                             ->label('Address'),
-                        TextInput::make('cv_particular')
-                            ->required()
-                            ->label('Particular/Purpose'),
-                        TextInput::make('cv_amount')
-                            ->prefix('₱')
-                            ->label('Amount'),
+//                        TextInput::make('cv_particular')
+//                            ->required()
+//                            ->label('Particular/Purpose'),
+//                        TextInput::make('cv_amount')
+//                            ->prefix('₱')
+//                            ->label('Amount'),
+                        Repeater::make('c_purpose_amount')
+                            ->label('Purpose and Amount')
+                            ->addActionLabel('Add')
+                            ->schema([
+                                TextInput::make('purpose')
+                                    ->required()
+                                    ->columnSpan(2)
+                                    ->label('Purpose/Particular'),
+                                TextInput::make('amount')
+                                    ->prefix('₱')
+                                    ->default(0.00)
+                                    ->label('Amount')
+                                    ->required()
+                            ])
+                            ->columns(3),
                         Select::make('returned_amt_receiver')
                             ->label('Returned Amount Receiver')
                             ->searchable()

@@ -11,6 +11,11 @@ class NlFinance extends Model
     use HasFactory;
     protected $table = 'nl_finance';
 
+    protected $casts = [
+      'c_purpose_amount' => 'array',
+      'a_purpose_amount' => 'array',
+    ];
+
     protected $guarded = [];
 
     protected static function boot()
